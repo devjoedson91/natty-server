@@ -2,7 +2,7 @@
   "name": "natty-server",
   "version": "1.0.0",
   "engines": {
-    "node": "14.17.4"
+    "node": "18.13.0"
   },
   "main": "server.js",
   "author": "Joedson Ferreira <joedson.devel@gmail.com>",
