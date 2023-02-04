@@ -6,94 +6,76 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 // yarn prisma migrate dev
 
 model User {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  password   String
+  admin      Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 
-    id String @id @default(uuid())
-    name String
-    email String @unique
-    password String
-    admin Boolean @default(false)
-    created_at DateTime @default(now())
-    updated_at DateTime @default(now())
+  reserve Reserve[]
 
-    @@map("users")
-
-    reserve Reserve[]
+  @@map("users")
 }
 
 model Category {
-
-  id String @id @default(uuid())
-  name String
-  icon String
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  id         String    @id @default(uuid())
+  name       String
+  icon       String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+  services   Service[]
 
   @@map("categories")
-  services Service[]
-}
-
-model Banner {
-
-  id String @id @default(uuid())
-  banner String
-  photo String
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
-
-  @@map("banner")
 }
 
 model Service {
-
-  id String @id @default(uuid())
-  name String
-  price String
-  categories Category @relation(fields: [category_id], references: [id])
-
-  @@map("services")
+  id          String   @id @default(uuid())
+  name        String
+  price       String
+  categories  Category @relation(fields: [category_id], references: [id])
   category_id String
 
-  reserve Reserve[]
+  reserve      Reserve[]
   time_service TimeService[]
+
+  @@map("services")
 }
 
 model Reserve {
-
-  id String @id @default(uuid())
-  date DateTime
-  hour String
-  draft Boolean @default(true)
-  status Boolean @default(false)
-  users User @relation(fields: [user_id], references: [id])
-  services Service @relation(fields: [service_id], references: [id])
+  id         String   @id @default(uuid())
+  date       DateTime
+  hour       String
+  draft      Boolean  @default(true)
+  status     Boolean  @default(false)
+  users      User     @relation(fields: [user_id], references: [id])
+  services   Service  @relation(fields: [service_id], references: [id])
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  @@map("reserve")
-
-  user_id String
+  user_id    String
   service_id String
 
+  @@map("reserve")
 }
 
 model TimeService {
-
-  id String @id @default(uuid())
+  id   String @id @default(uuid())
   date String
   hour String
 
   services Service @relation(fields: [service_id], references: [id])
 
-  @@map("time_service")
-
   service_id String
 
+  @@map("time_service")
 }

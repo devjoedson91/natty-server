@@ -26,6 +26,14 @@ class ListReservationsByDateService {
 
         });
 
+        const getUser = reserve.map(data => {
+
+            return data.users.name;
+
+        });
+
+        console.log(getUser);
+
         return reserve;
 
     }

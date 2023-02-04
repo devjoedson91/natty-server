@@ -23,17 +23,6 @@ CREATE TABLE "categories" (
 );
 
 -- CreateTable
-CREATE TABLE "banner" (
-    "id" TEXT NOT NULL,
-    "banner" TEXT NOT NULL,
-    "photo" TEXT NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "banner_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "services" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
