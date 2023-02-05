@@ -10,7 +10,7 @@ class CreateScheduleService {
 
     async execute({ date, hour, service_id }: ScheduleRequest) {
 
-        if (hour === '') throw new Error('Hour invalid');
+        if (hour === '' || hour.length > 5) throw new Error('Hour invalid');
 
         const schedule = await prismaClient.timeService.create({
             data: {
